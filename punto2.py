@@ -1,45 +1,49 @@
+def terminar():
+    """Imprime mensaje de salida y finaliza el programa."""
+    print("Terminando el programa.")
+    exit()
 print("Calculadora de distancias")
-
-# Elegir unidad
+# Solicita al usuario que elija la unidad de medida
 unidad = input("Unidad ('k'=km, 'a'=millas, 'm'=metros, 'z'=salir): ").lower()
 if unidad == 'z':
-    print("Terminando el programa.")
-    exit()
+    terminar()
 elif unidad not in ['k', 'a', 'm']:
     print("Unidad no válida.")
-    exit()
-
-# Elegir tipo de métrica
+    terminar()
+# Solicita el tipo de métrica para el cálculo de distancia
 tipo = input("Métrica ('t'=taxi, 'e'=euclídea, 'm'=máximo, 'z'=salir): ").lower()
 if tipo == 'z':
-    print("Terminando el programa.")
-    exit()
+    terminar()
 elif tipo not in ['t', 'e', 'm']:
     print("Tipo no válido.")
-    exit()
+    terminar()
 
-# Pedir coordenadas
+# Solicita las coordenadas de los dos puntos
 x1 = float(input("Primer punto x: "))
 y1 = float(input("Primer punto y: "))
 x2 = float(input("Segundo punto x: "))
 y2 = float(input("Segundo punto y: "))
 
-# Calcular diferencias (sin usar abs)
-dx = max(x1, x2) - min(x1, x2)
-dy = max(y1, y2) - min(y1, y2)
+# Calcula la diferencia entre coordenadas (valor absoluto)
+dx = abs(x1 - x2)
+dy = abs(y1 - y2)
 
-# Calcular distancia
+# Calcula la distancia según la métrica seleccionada
 if tipo == 't':
+    # Distancia tipo Taxi 
     distancia = dx + dy
 elif tipo == 'e':
+    # Distancia Euclídea
     distancia = (dx**2 + dy**2) ** 0.5
-else:  # máximo
-    distancia = dx if dx > dy else dy
+else:
+    # Distancia maximo
+    distancia = max(dx, dy)
 
-# Convertir a metros
+# Convierte la distancia a metros según la unidad seleccionada
 if unidad == 'k':
-    distancia *= 1000
+    distancia *= 1000          # Kilómetros a metros
 elif unidad == 'a':
-    distancia *= 1609.34
+    distancia *= 1609.34       # Millas a metros
 
+# Muestra el resultado con dos decimales
 print(f"La distancia es: {distancia:.2f} metros")
